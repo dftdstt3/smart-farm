@@ -1,0 +1,33 @@
+@font-face{font-family:"Barlow Condensed";font-weight:600;font-display:swap;src:url(fonts/barlow-condensed-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-display:swap;src:url(fonts/barlow-condensed-latin-700-normal.woff2) format("woff2")}
+
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#e9eecc}
+
+/* พื้นที่ว่างข้างเวที (จอที่ไม่ใช่ 16:9 มากๆ) เติมด้วยภาพเดียวกันแบบเบลอ */
+.backdrop{position:fixed;inset:-6%;background:url(images/2.png) center/cover no-repeat;filter:blur(24px)}
+
+/* เวที 1920x1080 ใช้รูปที่ 2 เป็นพื้นหลัง ขนาดจริงถูก scale ด้วย JS (--s) */
+.stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;margin:-540px 0 0 -960px;
+  background:url(images/2.png) 0 0/1920px 1080px no-repeat;
+  transform:scale(var(--s,1));transform-origin:50% 50%}
+.art{position:absolute;left:0;top:0;width:1920px;height:1080px}
+
+.num,.unit{font-family:"Barlow Condensed","DIN Condensed","Arial Narrow",Impact,sans-serif;fill:#185030;text-anchor:middle}
+.num{font-weight:700;font-size:176px}
+.unit{font-weight:600}
+.sensor{transition:opacity .3s}
+.sensor.off{opacity:.35}
+
+.toggle{position:absolute;width:144px;height:72px;padding:0;border:0;border-radius:36px;cursor:pointer;
+  background:#5ba44a;touch-action:none;-webkit-tap-highlight-color:transparent;
+  box-shadow:inset 0 2px 3px rgba(255,255,255,.25),0 5px 9px rgba(70,120,60,.28);transition:background .25s}
+.toggle[aria-checked="false"]{background:#bcc7ad}
+.knob{position:absolute;left:7px;top:7px;width:58px;height:58px;border-radius:50%;background:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,.25);transform:translateX(calc(var(--p,1) * 72px));
+  transition:transform .25s cubic-bezier(.3,.7,.3,1)}
+.toggle.drag .knob{transition:none}
+.toggle:focus-visible{outline:4px solid #185030;outline-offset:5px}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.knob,.toggle,.sensor{transition:none}}
